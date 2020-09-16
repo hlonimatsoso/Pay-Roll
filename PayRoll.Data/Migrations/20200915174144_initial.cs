@@ -36,6 +36,24 @@ namespace PayRoll.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Tasks",
+                columns: table => new
+                {
+                    EmployeeTaskID = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    TaskName = table.Column<string>(nullable: false),
+                    TaskDuration = table.Column<double>(nullable: false),
+                    CompletedBy = table.Column<int>(nullable: false),
+                    UserRateAtCompletionTime = table.Column<double>(nullable: false),
+                    DateOfCompletion = table.Column<DateTime>(nullable: false),
+                    PayRollUserID = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Tasks", x => x.EmployeeTaskID);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
@@ -177,30 +195,6 @@ namespace PayRoll.Data.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "Tasks",
-                columns: table => new
-                {
-                    EmployeeTaskID = table.Column<int>(nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    TaskName = table.Column<string>(nullable: false),
-                    TaskDuration = table.Column<double>(nullable: false),
-                    CompletedBy = table.Column<int>(nullable: false),
-                    UserRateAtCompletionTime = table.Column<double>(nullable: false),
-                    DateOfCompletion = table.Column<DateTime>(nullable: false),
-                    PayRollUserId = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Tasks", x => x.EmployeeTaskID);
-                    table.ForeignKey(
-                        name: "FK_Tasks_AspNetUsers_PayRollUserId",
-                        column: x => x.PayRollUserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -242,11 +236,6 @@ namespace PayRoll.Data.Migrations
                 name: "IX_AspNetUsers_RoleLevelID",
                 table: "AspNetUsers",
                 column: "RoleLevelID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Tasks_PayRollUserId",
-                table: "Tasks",
-                column: "PayRollUserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

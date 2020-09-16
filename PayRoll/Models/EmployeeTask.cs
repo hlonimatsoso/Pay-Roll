@@ -24,9 +24,9 @@ namespace PayRoll.Models
         
         public DateTime DateOfCompletion { get ; set ; }
 
-        //[ForeignKey("PayRollUser")]
-        //public int PayRollUserID { get ; set ; }
-        
-        public PayRollUser PayRollUser { get ; set ; }
+        public int? PayRollUserID { get; set; }
+
+        //[ForeignKey("PayRollUserID")]
+        //public PayRollUser PayRollUser { get; set; }
     }
 }

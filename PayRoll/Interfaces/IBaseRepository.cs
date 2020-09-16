@@ -11,6 +11,6 @@ namespace PayRoll.Interfaces
         T GetByID(object id);
         List<T> GetAll();
         void Insert(T entity);
-        void Update(T entityToUpdate);
+        void Update(object id, T entityToUpdate);
     }
 }

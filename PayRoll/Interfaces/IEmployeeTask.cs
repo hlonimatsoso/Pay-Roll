@@ -13,9 +13,9 @@ namespace PayRoll.Interfaces
 
         public double TaskDuration { get; set; }
 
-       // public int PayRollUserID { get; set; }
+        public int? PayRollUserID { get; set; }
 
-        public PayRollUser PayRollUser { get; set; }
+       // public PayRollUser PayRollUser { get; set; }
 
         public double UserRateAtCompletionTime { get; set; }
 

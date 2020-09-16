@@ -9,7 +9,7 @@ using PayRoll.Data;
 namespace PayRoll.Data.Migrations
 {
     [DbContext(typeof(PayRollDBContext))]
-    [Migration("20200915085318_initial")]
+    [Migration("20200915174144_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -159,8 +159,8 @@ namespace PayRoll.Data.Migrations
                     b.Property<DateTime>("DateOfCompletion")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<string>("PayRollUserId")
-                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
+                    b.Property<int?>("PayRollUserID")
+                        .HasColumnType("int");
 
                     b.Property<double>("TaskDuration")
                         .HasColumnType("double");
@@ -173,8 +173,6 @@ namespace PayRoll.Data.Migrations
                         .HasColumnType("double");
 
                     b.HasKey("EmployeeTaskID");
-
-                    b.HasIndex("PayRollUserId");
 
                     b.ToTable("Tasks");
                 });
@@ -324,13 +322,6 @@ namespace PayRoll.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("PayRoll.Models.EmployeeTask", b =>
-                {
-                    b.HasOne("PayRoll.Models.PayRollUser", "PayRollUser")
-                        .WithMany()
-                        .HasForeignKey("PayRollUserId");
                 });
 
             modelBuilder.Entity("PayRoll.Models.PayRollUser", b =>

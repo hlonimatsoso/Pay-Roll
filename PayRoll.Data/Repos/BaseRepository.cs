@@ -29,6 +29,7 @@ namespace PayRoll.Data.Repos
         public virtual void Insert(TEntity entity)
         {
             dbSet.Add(entity);
+            this.context.SaveChanges();
         }
 
 
@@ -45,12 +46,25 @@ namespace PayRoll.Data.Repos
                 dbSet.Attach(entityToDelete);
             }
             dbSet.Remove(entityToDelete);
+            this.context.SaveChanges();
         }
 
-        public virtual void Update(TEntity entityToUpdate)
+        public virtual void Update(object id, TEntity entityToUpdate)
         {
-            dbSet.Attach(entityToUpdate);
-            context.Entry(entityToUpdate).State = EntityState.Modified;
+
+            try
+            {
+                dbSet.Attach(entityToUpdate);
+                var entry = this.context.Entry(entityToUpdate);
+                entry.State = EntityState.Modified;
+                context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Failed to update id: '{id}': Error: {ex.ToString()}");
+                throw;
+            }
+    
         }
 
         public List<TEntity> GetAll()

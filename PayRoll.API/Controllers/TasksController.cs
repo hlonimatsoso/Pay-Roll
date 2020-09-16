@@ -21,36 +21,35 @@ namespace PayRoll.API.Controllers
             this._service = service;
         }
 
-        // GET: api/<TasksController>
+
         [HttpGet]
         public IEnumerable<EmployeeTask> Get()
         {
             return this._service.GetAll();
         }
 
-        // GET api/<TasksController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public EmployeeTask Get(int id)
         {
-            return "value";
+            return this._service.GetByID(id);
         }
 
-        // POST api/<TasksController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public void Post([FromBody] NewEmployeeTask task)
         {
+            this._service.Insert(new EmployeeTask { TaskName = task.Name, TaskDuration = task.Duration, PayRollUserID = task.AssignedTo == null ? 0 : (int)task.AssignedTo });
         }
 
-        // PUT api/<TasksController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public void Put(int id, [FromBody] EmployeeTask task)
         {
+            this._service.Update(id,task);
         }
 
-        // DELETE api/<TasksController>/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+            this._service.Delete(id);
         }
     }
 }

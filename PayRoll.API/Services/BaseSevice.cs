@@ -15,12 +15,12 @@ namespace PayRoll.API.Services
 
         public void Delete(T entityToDelete)
         {
-            throw new System.NotImplementedException();
+            this.Repo.Delete(entityToDelete);
         }
 
         public void Delete(object id)
         {
-            throw new System.NotImplementedException();
+            this.Repo.Delete(id);
         }
 
         public List<T> GetAll()
@@ -30,17 +30,17 @@ namespace PayRoll.API.Services
 
         public T GetByID(object id)
         {
-            throw new System.NotImplementedException();
+            return this.Repo.GetByID(id);
         }
 
         public void Insert(T entity)
         {
-            throw new System.NotImplementedException();
+            this.Repo.Insert(entity);
         }
 
-        public void Update(T entityToUpdate)
+        public void Update(object id, T entityToUpdate)
         {
-            throw new System.NotImplementedException();
+            this.Repo.Update(id, entityToUpdate);
         }
     }
 }
